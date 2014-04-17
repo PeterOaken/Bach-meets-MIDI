@@ -36,4 +36,8 @@ public class Player{
 		sequencer.stop();
 	}
 	
+	public void mute(int trackId){
+		sequencer.setTrackMute(trackId, true);
+	}
+	
 }

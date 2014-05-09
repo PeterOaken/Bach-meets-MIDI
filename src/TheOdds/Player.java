@@ -1,43 +1,33 @@
 package TheOdds;
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-
-import javax.sound.midi.MidiSystem;
-import javax.sound.midi.Sequencer;
 
 
-public class Player{
+public class Player {
 	
-	String path;
-	Sequencer sequencer;
-	
-	public Player(String filePath){
-		path = filePath;
+	public static void main(String[] argv){
+		FileNameResolver fnr = new FileNameResolver("data");
 		
-		try{
-			sequencer = MidiSystem.getSequencer();
-			sequencer.open();
-			InputStream is = new BufferedInputStream(new FileInputStream(new File(path)));
-			sequencer.setSequence(is);
+		if (argv[0].equals("-complex")){
+			ComplexAnalyzer complexAnalyzer = new ComplexAnalyzer(fnr.getFiles());
+			complexAnalyzer.analyze();
 			
-		}catch(Exception e){
-			System.out.print("Can't play the midi song");
-			e.printStackTrace();
+			ComplexComposer complexComposer = new ComplexComposer();
+			complexComposer.play(0, complexAnalyzer);
+		}else if(argv[0].equals("-simple")){
+			SimpleAnalyzer analyzer = new SimpleAnalyzer(fnr.getFiles());
+			analyzer.analyze();
+			
+			SimpleComposer simpleComposer = new SimpleComposer();
+			simpleComposer.play(0, analyzer);
+		}else if(argv[0].equals("-random")){		
+			RandomAnalyzer randomAnalyzer = new RandomAnalyzer();
+			randomAnalyzer.analyze();
+	
+			RandomComposer randomComposer = new RandomComposer();
+			randomComposer.play(0, randomAnalyzer);
+		}else{
+			System.out.println("Please specify the input correctly");
 		}
-	}
-	
-	public void play(){
-		sequencer.start();
-	}
-	
-	public void stop(){
-		sequencer.stop();
-	}
-	
-	public void mute(int trackId){
-		sequencer.setTrackMute(trackId, true);
-	}
-	
+		
+	}	
+
 }

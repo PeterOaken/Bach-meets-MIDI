@@ -20,7 +20,7 @@ import javax.sound.midi.Sequencer;
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Track;
 
-public class SimpleAnalyzer {
+public class SimpleAnalyzer extends Analyzer{
 	
 	ArrayList<File> files = new ArrayList<File>();
 	int numFiles;
@@ -41,7 +41,7 @@ public class SimpleAnalyzer {
 		} 
 	}
 	
-	
+	@Override
 	public void  analyze(){			
 		try {			
 

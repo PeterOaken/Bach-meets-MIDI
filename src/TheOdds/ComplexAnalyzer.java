@@ -18,7 +18,7 @@ import javax.sound.midi.Sequencer;
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Track;
 
-public class ComplexAnalyzer {
+public class ComplexAnalyzer extends Analyzer{
 	
 	ArrayList<File> files = new ArrayList<File>();
 	int numFiles;
@@ -41,7 +41,7 @@ public class ComplexAnalyzer {
 		} 
 	}
 	
-	
+	@Override
 	public void  analyze(){			
 		try {			
 
